@@ -9,6 +9,9 @@ import android.view.View;
 //import android.widget.AdapterView;
 //import android.widget.ArrayAdapter;
 //import android.widget.ListView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 //import android.widget.Toast;
 //test
@@ -16,19 +19,48 @@ import android.widget.TextView;
 public class StoriesHeroes extends ActionBarActivity {
 
     TextView displayThis;
-    public Intent dataFromStories = getIntent();
+    //public Intent dataFromStories = getIntent();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stories_heroes);
-        String choiceFromString = dataFromStories.getExtras().getString("name");
-        displayThis = (TextView) findViewById(R.id.displayThis);
-        displayThis.setText(choiceFromString);
+
+
+        //String choiceFromString = dataFromStories.getExtras().getString("name");
+
+
+        //displayThis = (TextView) findViewById(R.id.displayThis);
+        //displayThis.setText(choiceFromString);
 
     //    Toast.makeText(getBaseContext(), choiceFromString, Toast.LENGTH_LONG).show();
 
     //    displayThis.setText("Hello World!");
+
+        //LISTS
+        final String[] listOfValues = new String[] { "Bill Gates", "Thomas Edison,", "Clare Barton", "Ken Kutaragi", "George Lucas", "Donald Trump"};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listOfValues);
+
+        //PUTS TO LISTVIEW
+        ListView lv = (ListView) findViewById(R.id.listView);
+        lv.setAdapter(adapter);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Bundle bundle = new Bundle();
+
+                //GOES TO DIFFERENT PAGE BASED ON ID
+
+                //String nameOfChoice = listOfValues[(int)id];
+                //bundle.putString("name", nameOfChoice);
+                //Intent sendToSH = new Intent(StoriesHeroes.this, DisplayStories.class);
+                //sendToSH.putExtras(bundle);
+
+                startActivity(new Intent(StoriesHeroes.this, DisplayStories.class));
+            }
+        });
 
     }
 

@@ -6,6 +6,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.graphics.drawable.Drawable;
+
+import java.net.URL;
+import java.io.InputStream;
 
 //DISPLAYSTORIES
 public class DisplayStories extends ActionBarActivity {
@@ -14,6 +19,14 @@ public class DisplayStories extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_stories);
+
+        ImageView showThis = (ImageView)findViewById(R.id.display_image);
+
+        //URL url = new URL("http://i.imgur.com/J2nP95l.jpg");
+        //InputStream content = (InputStream)url.getContent();
+        //Drawable d = Drawable.createFromStream(content, "src");
+        //showThis.setImageDrawable(d);
+
     }
 
 
