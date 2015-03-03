@@ -7,10 +7,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.graphics.drawable.Drawable;
+import android.widget.TextView;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
-import java.net.URL;
+import android.widget.Toast;
+
+import java.io.BufferedInputStream;
 import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 
 //DISPLAYSTORIES
 public class DisplayStories extends ActionBarActivity {
@@ -22,11 +28,30 @@ public class DisplayStories extends ActionBarActivity {
 
         ImageView showThis = (ImageView)findViewById(R.id.display_image);
 
-        //URL url = new URL("http://i.imgur.com/J2nP95l.jpg");
-        //InputStream content = (InputStream)url.getContent();
-        //Drawable d = Drawable.createFromStream(content, "src");
-        //showThis.setImageDrawable(d);
+        Bundle dataFromStoriesHeroes = getIntent().getExtras();
 
+        //MUST DISPLAY IMAGE
+        try {
+            URL imgURL = new URL("http://www.pokezorworld.com/anime/bmp/Pikachupichu.bmp");
+            URLConnection conn = imgURL.openConnection();
+            conn.connect();
+            Toast.makeText(getApplicationContext(), "Test Here", Toast.LENGTH_LONG).show();
+
+            InputStream is = conn.getInputStream();
+            BufferedInputStream bis = new BufferedInputStream(is);
+
+            Bitmap bmp = BitmapFactory.decodeStream(bis);
+            bis.close();
+            is.close();
+            showThis.setImageBitmap(bmp);
+        }
+        catch(Exception e){
+            String choiceFromString = dataFromStoriesHeroes.getString("name");
+            //Toast.makeText(getApplicationContext(), "Does not Work", Toast.LENGTH_LONG).show();
+
+            TextView displayThis = (TextView) findViewById(R.id.displayThis);
+            displayThis.setText(choiceFromString);
+        }
     }
 
 
