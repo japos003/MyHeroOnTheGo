@@ -2,31 +2,32 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"  tools:context=".MainActivity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="?android:attr/listPreferredItemHeight"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:id="@+id/linearLayout">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
         <Button
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
             android:text="Videos"
             android:onClick="gotoFilms"/>
 
         <Button
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
             android:text="Art"
             android:onClick="gotoArt" />
 
         <Button
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
             android:text="Stories"
             android:onClick="gotoStories" />
-    </LinearLayout>
+    </RelativeLayout>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
         android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"

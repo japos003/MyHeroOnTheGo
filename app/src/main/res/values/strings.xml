@@ -9,5 +9,6 @@
     <string name="title_activity_stories">Stories</string>
     <string name="title_activity_art">Art</string>
     <string name="title_activity_stories_heroes">StoriesHeroes</string>
+    <string name="title_activity_submit_story">SubmitStory</string>
 
 </resources>
