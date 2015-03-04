@@ -93,7 +93,7 @@ public class StoriesHeroes extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_menu, menu);
+        getMenuInflater().inflate(R.menu.menu_stories_heroes, menu);
         return true;
     }
 
@@ -105,8 +105,8 @@ public class StoriesHeroes extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.submitStory) {
+            startActivity(new Intent(StoriesHeroes.this, SubmitStory.class));
         }
 
         return super.onOptionsItemSelected(item);

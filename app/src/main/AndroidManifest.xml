@@ -41,6 +41,10 @@
             android:name=".SubmitStory"
             android:label="@string/title_activity_submit_story" >
         </activity>
+        <activity
+            android:name=".SubmitArt"
+            android:label="@string/title_activity_submit_art" >
+        </activity>
     </application>
 
 </manifest>
