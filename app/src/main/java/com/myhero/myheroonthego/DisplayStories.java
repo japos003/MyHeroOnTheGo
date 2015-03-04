@@ -15,8 +15,13 @@ import android.widget.Toast;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.*;
+
+import org.apache.http.*;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.HttpClient;
+import org.apache.http.entity.BufferedHttpEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 //DISPLAYSTORIES
 public class DisplayStories extends ActionBarActivity {
@@ -33,17 +38,23 @@ public class DisplayStories extends ActionBarActivity {
         //MUST DISPLAY IMAGE
         try {
             URL imgURL = new URL("http://www.pokezorworld.com/anime/bmp/Pikachupichu.bmp");
-            URLConnection conn = imgURL.openConnection();
-            conn.connect();
-            Toast.makeText(getApplicationContext(), "Test Here", Toast.LENGTH_LONG).show();
+            HttpGet httpRequest = null;
 
-            InputStream is = conn.getInputStream();
-            BufferedInputStream bis = new BufferedInputStream(is);
+            Toast.makeText(getApplicationContext(), "Problem?", Toast.LENGTH_LONG).show();
 
-            Bitmap bmp = BitmapFactory.decodeStream(bis);
-            bis.close();
-            is.close();
-            showThis.setImageBitmap(bmp);
+            httpRequest = new HttpGet(imgURL.toURI());
+
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpResponse response = (HttpResponse) httpclient
+                    .execute(httpRequest);
+
+            HttpEntity entity = response.getEntity();
+            BufferedHttpEntity b_entity = new BufferedHttpEntity(entity);
+            InputStream input = b_entity.getContent();
+
+            Bitmap bitmap = BitmapFactory.decodeStream(input);
+
+            showThis.setImageBitmap(bitmap);
         }
         catch(Exception e){
             String choiceFromString = dataFromStoriesHeroes.getString("name");

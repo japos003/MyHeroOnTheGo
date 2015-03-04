@@ -49,16 +49,16 @@ public class StoriesHeroes extends ActionBarActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Bundle bundle = new Bundle();
+                Bundle bundle = new Bundle();
 
                 //GOES TO DIFFERENT PAGE BASED ON ID
 
-                //String nameOfChoice = listOfValues[(int)id];
-                //bundle.putString("name", nameOfChoice);
-                //Intent sendToSH = new Intent(StoriesHeroes.this, DisplayStories.class);
-                //sendToSH.putExtras(bundle);
+                String nameOfChoice = listOfValues[(int)id];
+                bundle.putString("name", nameOfChoice);
+                Intent sendToDS = new Intent(StoriesHeroes.this, DisplayStories.class);
+                sendToDS.putExtras(bundle);
 
-                startActivity(new Intent(StoriesHeroes.this, DisplayStories.class));
+                startActivity(sendToDS);
             }
         });
 

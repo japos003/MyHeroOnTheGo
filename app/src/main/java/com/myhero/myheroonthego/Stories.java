@@ -47,11 +47,11 @@ public class Stories extends ActionBarActivity{
                 //GOES TO DIFFERENT PAGE BASED ON ID
 
                 String nameOfChoice = listOfValues[(int)id];
-                //bundle.putString("name", nameOfChoice);
+                bundle.putString("name", nameOfChoice);
                 Intent sendToSH = new Intent(Stories.this, StoriesHeroes.class);
-                //sendToSH.putExtras(bundle);
+                sendToSH.putExtras(bundle);
 
-                startActivity(new Intent(Stories.this, StoriesHeroes.class));
+                startActivity(sendToSH);
             }
         });
 
