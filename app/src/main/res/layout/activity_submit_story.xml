@@ -52,7 +52,9 @@
         <EditText
             android:id="@+id/body"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="0dp"
+            android:gravity="top"
+            android:layout_weight="1"
             android:hint="Body"
             android:inputType="text"
             android:layout_below="@+id/category"
@@ -63,6 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Submit"
+            android:layout_gravity="right"
             />
         </LinearLayout>
     </RelativeLayout>
