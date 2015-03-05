@@ -20,7 +20,6 @@ public class Stories extends ActionBarActivity{
 
     public static final String KEY_WORD = "heroes_choice";
     private String storytag = " ";
-    private ArrayAdapter<StoryCat> b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,8 +115,14 @@ public class Stories extends ActionBarActivity{
                     if (tag.contains(":")) {
                         String[] xparts = tag.split(":");
                         String tag2 = xparts[1];
-                        storytag = tag2;
-                        //Toast.makeText(Stories.this, tag2.trim(), Toast.LENGTH_LONG).show();
+                        if (textView.getText().toString().contains("Tag:")) {
+                            storytag = tag2;
+                            SearchStoryCategory ssc = new SearchStoryCategory();
+                            ssc.execute();
+                        }
+                        else {
+                            Toast.makeText(Stories.this, tag2.trim(), Toast.LENGTH_LONG).show();
+                        }
                     }
                     else {
 

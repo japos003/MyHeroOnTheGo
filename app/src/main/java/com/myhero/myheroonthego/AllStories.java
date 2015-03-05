@@ -33,6 +33,6 @@ public class AllStories implements Serializable {
 
     @Override
     public String toString() {
-        return "Tag: " + tag  + "~ Type: " + type + "~ Description: " + description;
+        return "Tag:" + tag  + "~ Type: " + type + "~ Description: " + description;
     }
 }

@@ -29,14 +29,17 @@ public class executeStoryCategory {
 
                 JSONObject jsonStory = storycatArray.getJSONObject(i);
 
-                String tag = jsonStory.getString("tag");
-                //storycs.setTag(tag);
+                String storylink = jsonStory.getString("storylink");
+                storycs.setStoryLink(storylink);
 
-                String type = jsonStory.getString("type");
-                //storycs.setType(type);
+                String name = jsonStory.getString("name");
+                storycs.setname(name);
+
+                String imglink = jsonStory.getString("imglink");
+                storycs.setImglink(imglink);
 
                 String description = jsonStory.getString("description");
-                //storycs.setDescription(description);
+                storycs.setdescription(description);
 
                 storyC.add(storycs);
             }
