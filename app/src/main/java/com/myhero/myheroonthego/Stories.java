@@ -1,6 +1,7 @@
 package com.myhero.myheroonthego;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,21 +10,124 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 
 
 public class Stories extends ActionBarActivity{
 
     public static final String KEY_WORD = "heroes_choice";
+    private String storytag = " ";
+    private ArrayAdapter<StoryCat> b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stories);
+        //once user clicks on stories start to get all stories
+        SearchAllStory sas = new SearchAllStory();
+        sas.execute();
+        //setContentView(R.layout.activity_stories);
 
-        showList();
+        //showList();
 
+    }
+
+    class SearchAllStory extends AsyncTask<String, Integer, ArrayList<AllStories>> {
+        //call to get all stories
+
+        @Override
+        protected ArrayList<AllStories> doInBackground(String... params) {
+
+            executeGetAllStory getallstory = new executeGetAllStory();
+            ArrayList<AllStories> stories = getallstory.GetAllStory();
+            return stories;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<AllStories> allStories) {
+            //once
+            ArrayAdapter<AllStories> storyAdapter = new ArrayAdapter<AllStories>(Stories.this, android.R.layout.simple_list_item_1, allStories);
+            setProgressBarIndeterminateVisibility(false);
+            setContentView(R.layout.activity_stories);
+            registerClickCallback();
+            populateListView(storyAdapter);
+        }
+        //doesn't really do anything
+        @Override
+        protected void onPreExecute() {
+            setProgressBarIndeterminateVisibility(true);
+        }
+
+    }
+
+    class SearchStoryCategory extends AsyncTask<String, Integer, ArrayList<StoryCat>> {
+        //call to story categories of a tag
+
+        @Override
+        protected ArrayList<StoryCat> doInBackground(String... params) {
+
+            executeStoryCategory getstorycategory = new executeStoryCategory();
+            ArrayList<StoryCat> storyc = getstorycategory.GetStoryCategory(storytag);
+            return storyc;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<StoryCat> Storiesca) {
+            //once
+            ArrayAdapter<StoryCat> storycAdapter = new ArrayAdapter<StoryCat>(Stories.this, android.R.layout.simple_list_item_1, Storiesca);
+            setProgressBarIndeterminateVisibility(false);
+            setContentView(R.layout.activity_stories);
+            registerClickCallback();
+            populateListView2(storycAdapter);
+        }
+        //doesn't really do anything
+        @Override
+        protected void onPreExecute() {
+            setProgressBarIndeterminateVisibility(true);
+        }
+
+    }
+
+    private void populateListView2(ArrayAdapter<StoryCat> b) {
+        ListView list = (ListView) findViewById(R.id.listView);
+        list.setAdapter(b);
+    }
+
+    private void populateListView(ArrayAdapter<AllStories> a) {
+        ListView list = (ListView) findViewById(R.id.listView);
+        list.setAdapter(a);
+    }
+
+    private void registerClickCallback() {
+        ListView list = (ListView) findViewById(R.id.listView);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> paret, View viewClicked, int position, long id) {
+                TextView textView = (TextView) viewClicked;
+                String message ="Which is string: " + textView.getText().toString();
+                String tosplit = textView.getText().toString();
+                //Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                if (textView.getText().toString().contains("~")) {
+                    String[] parts = tosplit.split("~");
+                    String tag = parts[0];
+                    if (tag.contains(":")) {
+                        String[] xparts = tag.split(":");
+                        String tag2 = xparts[1];
+                        storytag = tag2;
+                        //Toast.makeText(Stories.this, tag2.trim(), Toast.LENGTH_LONG).show();
+                    }
+                    else {
+
+                    }
+                }
+                else {
+                    Toast.makeText(Stories.this, message, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     private void showList(){
