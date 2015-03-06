@@ -48,7 +48,7 @@ public class StartUp extends ActionBarActivity {
 
     //VIDEOS
     public void gotoFilms(View view){
-
+        startActivity(new Intent(StartUp.this, Films.class));
     }
 
     //ART

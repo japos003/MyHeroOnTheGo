@@ -121,6 +121,15 @@ public class Stories extends ActionBarActivity{
                         }
                         else {
                             Toast.makeText(Stories.this, tag2.trim(), Toast.LENGTH_LONG).show();
+                            //ADD CODE
+                            Bundle bundle = new Bundle();
+                            String nameOfChoice = tag2.trim();
+                            bundle.putString("name", nameOfChoice);
+                            Intent sendToSH = new Intent(Stories.this, StoriesHeroes.class);
+                            sendToSH.putExtras(bundle);
+
+                            startActivity(sendToSH);
+                            //END OF CODE
                         }
                     }
                     else {
@@ -136,12 +145,7 @@ public class Stories extends ActionBarActivity{
 
     private void showList(){
 
-        //LISTS
-        final String[] listOfValues = new String[] { "Aids", "Angels", "Animals",
-                "Artists", "Business", "Community", "Earthkeepers", "Explorers", "Faith",
-                "Family", "Freedom", "Health", "Hero's Hero", "Heroes in the News"};
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listOfValues);
+        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listOfValues);
 
         //PUTS TO LISTVIEW
         ListView lv = (ListView) findViewById(R.id.listView);
@@ -161,7 +165,7 @@ public class Stories extends ActionBarActivity{
 
                 startActivity(sendToSH);
             }
-        });
+        });*/
 
     }
 
@@ -190,7 +194,7 @@ public class Stories extends ActionBarActivity{
 
     //VIDEOS
     public void gotoFilms(View view){
-        //startActivity(new Intent(Art.this, Films.class));
+        startActivity(new Intent(Stories.this, Films.class));
     }
 
     //ART
