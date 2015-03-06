@@ -164,10 +164,12 @@ public class Stories extends ActionBarActivity{
                         }
                         else if(textView.getText().toString().contains("storylink:")) {
                             storylink = tag2;
-                            Toast.makeText(Stories.this, tag2.trim(), Toast.LENGTH_LONG).show();
+                            SearchStory ss = new SearchStory();
+                            ss.execute();
+                            //Toast.makeText(Stories.this, tag2.trim(), Toast.LENGTH_LONG).show();
                         }
                         else {
-                           //Toast.makeText(Stories.this, tag2.trim(), Toast.LENGTH_LONG).show();
+                           Toast.makeText(Stories.this, tag2.trim(), Toast.LENGTH_LONG).show();
                         }
                     }
                     else {

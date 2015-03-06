@@ -19,10 +19,11 @@ public class executeGetStory {
         ArrayList<StoryDetails> story = new ArrayList<StoryDetails>();
         GetRequest getrequest = new GetRequest();
         try {
-
             String rawStoryData = getrequest.request(URL);
 
-            JSONArray storyArray = new JSONArray(rawStoryData);
+            JSONObject storyraw = new JSONObject(rawStoryData);
+
+            JSONArray storyArray = storyraw.getJSONArray("content");
 
             for (int i =0; i < storyArray.length(); i++) {
 
@@ -30,19 +31,26 @@ public class executeGetStory {
 
                 JSONObject jsonStory = storyArray.getJSONObject(i);
 
-                String kind = jsonStory.getString("Kind");
-                storydetails.setKind(kind);
+                if(jsonStory.toString().contains("text")) {
+                    String text = jsonStory.getString("text");
+                    storydetails.setText(text);
+                    story.add(storydetails);
+                }
 
-                String link = jsonStory.getString("link");
-                storydetails.setLink(link);
+                /*
+                else {
+                    String description = jsonStory.getString("description");
+                    storydetails.setDescription3(description);
 
-                String description = jsonStory.getString("description");
-                storydetails.setDescription3(description);
+                    String kind = jsonStory.getString("kind");
+                    storydetails.setKind(kind);
 
-                String text = jsonStory.getString("text");
-                storydetails.setText(text);
+                    String link = jsonStory.getString("link");
+                    storydetails.setLink(link);
+                }
+                */
 
-                story.add(storydetails);
+                //story.add(storydetails);
             }
 
         }

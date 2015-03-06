@@ -41,6 +41,7 @@ public class StoryDetails implements Serializable {
 
     @Override
     public String toString() {
-        return "Kind:" + Kind  + "~link:" + link + "~description:" + description3 + "~Text:" + text;
+        return text;
+        //return "Kind:" + Kind  + "~link:" + link + "~description:" + description3 + "~Text:" + text;
     }
 }
