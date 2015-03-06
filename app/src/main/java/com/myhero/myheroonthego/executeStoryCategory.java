@@ -12,7 +12,8 @@ import java.util.ArrayList;
  * Created by Raul Madrigal Jr on 3/5/2015.
  */
 public class executeStoryCategory {
-
+    //make an http request to get a list of stories under a certain tag
+    //and then parse the JSON array into a java array and return the results
     public ArrayList<StoryCat> GetStoryCategory(String x) {
         String URL = "http://198.199.112.105:5000/storyList/" + x;
         ArrayList<StoryCat> storyC = new ArrayList<StoryCat>();

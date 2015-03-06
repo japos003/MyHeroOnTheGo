@@ -13,6 +13,8 @@ import java.util.ArrayList;
  */
 public class executeGetAllArt {
     public ArrayList<AllArt> GetAllArt() {
+        //make an http request to get the list of all art tags
+        //and then parse the data into a java format and then return
         String URL = "http://198.199.112.105:5000/getArtMedium";
         ArrayList<AllArt> aart = new ArrayList<AllArt>();
         GetRequest getrequest = new GetRequest();

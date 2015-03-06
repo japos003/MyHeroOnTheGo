@@ -21,16 +21,17 @@ public class Art extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_art);\
+        //setContentView(R.layout.activity_art);
+        //once the user click on the art button
+        //start to find all art tags
         SearchAllArt saa = new SearchAllArt();
         saa.execute();
     }
 
     class SearchAllArt extends AsyncTask<String, Integer, ArrayList<AllArt>> {
-        //call to get all a list all art
+        //call to get all a list of all art tags
         @Override
         protected ArrayList<AllArt> doInBackground(String... params) {
-
             executeGetAllArt getallart = new executeGetAllArt();
             ArrayList<AllArt> art = getallart.GetAllArt();
             return art;
@@ -38,7 +39,7 @@ public class Art extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(ArrayList<AllArt> allart) {
-            //once we get all stories, call to display as a list
+            //once we get all art tags, call to display as a list
             ArrayAdapter<AllArt> artAdapter = new ArrayAdapter<AllArt>(Art.this, android.R.layout.simple_list_item_1, allart);
             setProgressBarIndeterminateVisibility(false);
             setContentView(R.layout.activity_art);
@@ -54,11 +55,14 @@ public class Art extends ActionBarActivity {
     }
 
     private void populateListView(ArrayAdapter<AllArt> c) {
+        //set the view to display all art tags
         ListView list = (ListView) findViewById(R.id.listView);
         list.setAdapter(c);
     }
 
     private void registerClickCallback() {
+        //this function determines if the user clicks
+        //a part of the list
         ListView list = (ListView) findViewById(R.id.listView);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

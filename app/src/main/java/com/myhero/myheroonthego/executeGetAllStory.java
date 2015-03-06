@@ -14,6 +14,8 @@ import java.util.ArrayList;
 public class executeGetAllStory {
 
     public ArrayList<AllStories> GetAllStory() {
+        //make an http request to get the list of all stroy tags
+        //and then parse the data into a java format and then return
         String URL = "http://198.199.112.105:5000/getAllStory";
         ArrayList<AllStories> allstory = new ArrayList<AllStories>();
         GetRequest getrequest = new GetRequest();

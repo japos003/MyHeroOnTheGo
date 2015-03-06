@@ -6,6 +6,7 @@ import java.io.Serializable;
  * Created by Raul Madrigal Jr on 3/5/2015.
  */
 public class StoryCat implements Serializable {
+    //set the different type of tags in the array to this object
     public String getstoryLink() {
         return storyLink;
     }
