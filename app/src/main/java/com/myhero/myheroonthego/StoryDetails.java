@@ -6,6 +6,13 @@ import java.io.Serializable;
  * Created by Raul on 3/5/2015.
  */
 public class StoryDetails implements Serializable {
+    public String getName4() {
+        return name4;
+    }
+    public void setName4(String name4) {
+        this.name4 = name4;
+    }
+
     public String getkind() {
         return Kind;
     }
@@ -38,10 +45,22 @@ public class StoryDetails implements Serializable {
     private String link;
     private String description3;
     private String text;
+    private String name4;
 
     @Override
     public String toString() {
-        return text;
-        //return "Kind:" + Kind  + "~link:" + link + "~description:" + description3 + "~Text:" + text;
+        //since the JSON array has an object for text and
+        //Kind, Link, and Description
+        //only display the stuff that isn't null
+        if (text != null) {
+            return text;
+        }
+        else if (link != null) {
+            return "Link: " + link;
+            //return "Kind:" + Kind  + "~link:" + link + "~description:" + description3;
+        }
+        else {
+            return name4 + "\n";
+        }
     }
 }

@@ -51,6 +51,7 @@ public class Stories extends ActionBarActivity{
             //once we get all stories, call to display as a list
             ArrayAdapter<AllStories> storyAdapter = new ArrayAdapter<AllStories>(Stories.this, android.R.layout.simple_list_item_1, allStories);
             setProgressBarIndeterminateVisibility(false);
+            String ta565g = allStories.get(1).toString();
             setContentView(R.layout.activity_stories);
             //this function is to see if user clicks on anything in the list
             registerClickCallback();
@@ -169,7 +170,7 @@ public class Stories extends ActionBarActivity{
                             //Toast.makeText(Stories.this, tag2.trim(), Toast.LENGTH_LONG).show();
                         }
                         else {
-                           Toast.makeText(Stories.this, tag2.trim(), Toast.LENGTH_LONG).show();
+                           //Toast.makeText(Stories.this, tag2.trim(), Toast.LENGTH_LONG).show();
                         }
                     }
                     else {
@@ -177,7 +178,7 @@ public class Stories extends ActionBarActivity{
                     }
                 }
                 else {
-                    Toast.makeText(Stories.this, message, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(Stories.this, message, Toast.LENGTH_LONG).show();
                 }
             }
         });

@@ -42,7 +42,7 @@ public class StoryCat implements Serializable {
 
     @Override
     public String toString() {
-        return "storylink:" + storyLink  + "~name:" + name + "~imglink:" + imglink + "~Description:" + description;
+        return "storylink:" + storyLink  + "~name:" + name + "~Description:" + description;
     }
 
 }

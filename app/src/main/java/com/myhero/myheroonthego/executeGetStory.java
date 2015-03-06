@@ -23,6 +23,18 @@ public class executeGetStory {
 
             JSONObject storyraw = new JSONObject(rawStoryData);
 
+            String[] parts = rawStoryData.split(":");
+            String name5 = parts[1];
+
+            String[] xparts = name5.split(",");
+            String name6 = xparts[0].replace("\"", "").trim();
+
+
+
+            StoryDetails storyDetails = new StoryDetails();
+            storyDetails.setName4(name6);
+            story.add(storyDetails);
+
             JSONArray storyArray = storyraw.getJSONArray("content");
 
             for (int i =0; i < storyArray.length(); i++) {
@@ -37,7 +49,7 @@ public class executeGetStory {
                     story.add(storydetails);
                 }
 
-                /*
+
                 else {
                     String description = jsonStory.getString("description");
                     storydetails.setDescription3(description);
@@ -47,10 +59,8 @@ public class executeGetStory {
 
                     String link = jsonStory.getString("link");
                     storydetails.setLink(link);
+                    story.add(storydetails);
                 }
-                */
-
-                //story.add(storydetails);
             }
 
         }
