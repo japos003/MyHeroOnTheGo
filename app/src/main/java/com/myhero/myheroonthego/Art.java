@@ -126,7 +126,7 @@ public class Art extends ActionBarActivity {
 
     //ART
     public void gotoFilms(View view){
-        //startActivity(new Intent(Art.this, Films.class));
+        startActivity(new Intent(Art.this, Films.class));
     }
 
     //STORIES

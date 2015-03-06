@@ -18,19 +18,17 @@ import java.util.ArrayList;
 
 public class Stories extends ActionBarActivity{
 
-    //public static final String KEY_WORD = "heroes_choice";
-    //variable to get Tag
+    public static final String KEY_WORD = "heroes_choice";
     private String storytag = " ";
-    //vatiable to get storylink
-    private String storylink = " ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //once user clicks on stories start to get all story tags
+        //once user clicks on stories start to get all stories
         SearchAllStory sas = new SearchAllStory();
         sas.execute();
         //setContentView(R.layout.activity_stories);
+
         //showList();
 
     }
@@ -41,7 +39,6 @@ public class Stories extends ActionBarActivity{
         protected ArrayList<AllStories> doInBackground(String... params) {
 
             executeGetAllStory getallstory = new executeGetAllStory();
-            //put the list of stories into an array
             ArrayList<AllStories> stories = getallstory.GetAllStory();
             return stories;
         }
@@ -52,9 +49,7 @@ public class Stories extends ActionBarActivity{
             ArrayAdapter<AllStories> storyAdapter = new ArrayAdapter<AllStories>(Stories.this, android.R.layout.simple_list_item_1, allStories);
             setProgressBarIndeterminateVisibility(false);
             setContentView(R.layout.activity_stories);
-            //this function is to see if user clicks on anything in the list
             registerClickCallback();
-            //This function is to make the list of story tags visible
             populateListView(storyAdapter);
         }
         //doesn't really do anything
@@ -67,6 +62,7 @@ public class Stories extends ActionBarActivity{
 
     class SearchStoryCategory extends AsyncTask<String, Integer, ArrayList<StoryCat>> {
         //call to get a list of stories related to a tag
+
         @Override
         protected ArrayList<StoryCat> doInBackground(String... params) {
 
@@ -77,7 +73,7 @@ public class Stories extends ActionBarActivity{
 
         @Override
         protected void onPostExecute(ArrayList<StoryCat> Storiesca) {
-            //once we get the list of stories, we display them
+            //once
             ArrayAdapter<StoryCat> storycAdapter = new ArrayAdapter<StoryCat>(Stories.this, android.R.layout.simple_list_item_1, Storiesca);
             setProgressBarIndeterminateVisibility(false);
             setContentView(R.layout.activity_stories);
@@ -92,54 +88,17 @@ public class Stories extends ActionBarActivity{
 
     }
 
-    class SearchStory extends AsyncTask<String, Integer, ArrayList<StoryDetails>> {
-        //call to get a list of a story detail
-        @Override
-        protected ArrayList<StoryDetails> doInBackground(String... params) {
-            executeGetStory getstory = new executeGetStory();
-            ArrayList<StoryDetails> storyd = getstory.GetStory(storylink);
-            return storyd;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<StoryDetails> Storyd) {
-            //once we get the list of stories, we display them
-            ArrayAdapter<StoryDetails> storydAdapter = new ArrayAdapter<StoryDetails>(Stories.this, android.R.layout.simple_list_item_1, Storyd);
-            setProgressBarIndeterminateVisibility(false);
-            setContentView(R.layout.activity_stories);
-            registerClickCallback();
-            populateListView3(storydAdapter);
-        }
-        //doesn't really do anything
-        @Override
-        protected void onPreExecute() {
-            setProgressBarIndeterminateVisibility(true);
-        }
-
-    }
-
-    private void populateListView3(ArrayAdapter<StoryDetails> d) {
-        //this sets the view to display the list of stories under
-        //a certain tag
-        ListView list = (ListView) findViewById(R.id.listView);
-        list.setAdapter(d);
-    }
-
     private void populateListView2(ArrayAdapter<StoryCat> b) {
-        //this sets the view to display the list of stories under
-        //a certain tag
         ListView list = (ListView) findViewById(R.id.listView);
         list.setAdapter(b);
     }
 
     private void populateListView(ArrayAdapter<AllStories> a) {
-        //this is to set the view to display the list of stroy tags
         ListView list = (ListView) findViewById(R.id.listView);
         list.setAdapter(a);
     }
 
     private void registerClickCallback() {
-        //this functions tries to see if the user clicks on a certain part of the list
         ListView list = (ListView) findViewById(R.id.listView);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -150,8 +109,6 @@ public class Stories extends ActionBarActivity{
                 String tosplit = textView.getText().toString();
                 //Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
                 if (textView.getText().toString().contains("~")) {
-                    //separate each part of the array with ~
-                    //and split the string based on each ~
                     String[] parts = tosplit.split("~");
                     String tag = parts[0];
                     if (tag.contains(":")) {
@@ -162,14 +119,8 @@ public class Stories extends ActionBarActivity{
                             SearchStoryCategory ssc = new SearchStoryCategory();
                             ssc.execute();
                         }
-                        else if(textView.getText().toString().contains("storylink:")) {
-                            storylink = tag2;
-                            SearchStory ss = new SearchStory();
-                            ss.execute();
-                            //Toast.makeText(Stories.this, tag2.trim(), Toast.LENGTH_LONG).show();
-                        }
                         else {
-                           Toast.makeText(Stories.this, tag2.trim(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(Stories.this, tag2.trim(), Toast.LENGTH_LONG).show();
                         }
                     }
                     else {
@@ -183,7 +134,6 @@ public class Stories extends ActionBarActivity{
         });
     }
 
-    /*
     private void showList(){
 
         //LISTS
@@ -214,7 +164,6 @@ public class Stories extends ActionBarActivity{
         });
 
     }
-    */
 
 
     @Override
