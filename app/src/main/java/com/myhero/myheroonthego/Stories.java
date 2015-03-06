@@ -34,8 +34,7 @@ public class Stories extends ActionBarActivity{
     }
 
     class SearchAllStory extends AsyncTask<String, Integer, ArrayList<AllStories>> {
-        //call to get all stories
-
+        //call to get a list of all story tags
         @Override
         protected ArrayList<AllStories> doInBackground(String... params) {
 
@@ -46,7 +45,7 @@ public class Stories extends ActionBarActivity{
 
         @Override
         protected void onPostExecute(ArrayList<AllStories> allStories) {
-            //once
+            //once we get all stories, call to display as a list
             ArrayAdapter<AllStories> storyAdapter = new ArrayAdapter<AllStories>(Stories.this, android.R.layout.simple_list_item_1, allStories);
             setProgressBarIndeterminateVisibility(false);
             setContentView(R.layout.activity_stories);
@@ -62,7 +61,7 @@ public class Stories extends ActionBarActivity{
     }
 
     class SearchStoryCategory extends AsyncTask<String, Integer, ArrayList<StoryCat>> {
-        //call to story categories of a tag
+        //call to get a list of stories related to a tag
 
         @Override
         protected ArrayList<StoryCat> doInBackground(String... params) {
