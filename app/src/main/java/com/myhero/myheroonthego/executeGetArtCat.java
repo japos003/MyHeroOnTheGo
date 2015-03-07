@@ -28,17 +28,20 @@ public class executeGetArtCat {
 
                 JSONObject jsonStory = artcatArray.getJSONObject(i);
 
-                String storylink = jsonStory.getString("storylink");
-                artcs.setStoryLink(storylink);
-
-                String name = jsonStory.getString("name");
-                artcs.setname(name);
+                String artist = jsonStory.getString("artist");
+                artcs.setArtist(artist);
 
                 String imglink = jsonStory.getString("imglink");
                 artcs.setImglink(imglink);
 
-                String description = jsonStory.getString("description");
-                artcs.setdescription(description);
+                String cap = jsonStory.getString("cap");
+                artcs.setCap(cap);
+
+                String name = jsonStory.getString("name");
+                artcs.setname(name);
+
+                String artlink = jsonStory.getString("artlink");
+                artcs.setartLink(artlink);
 
                 artC.add(artcs);
             }

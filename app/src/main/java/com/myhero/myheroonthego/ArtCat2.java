@@ -6,11 +6,18 @@ import java.io.Serializable;
  * Created by Raul on 3/6/2015.
  */
 public class ArtCat2 implements Serializable {
-    public String getstoryLink() {
-        return storyLink;
+    public String getCap() {
+        return cap;
     }
-    public void setStoryLink(String storyLink) {
-        this.storyLink = storyLink;
+    public void setCap(String cap) {
+        this.cap = cap;
+    }
+
+    public String getartLink() {
+        return artLink;
+    }
+    public void setartLink(String artLink) {
+        this.artLink = artLink;
     }
 
     public String getname() {
@@ -27,20 +34,21 @@ public class ArtCat2 implements Serializable {
         this.imglink = imglink;
     }
 
-    public String getdescription() {
-        return description;
+    public String getArtist() {
+        return artist;
     }
-    public void setdescription(String description) {
-        this.description = description;
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 
-    private String storyLink;
+    private String cap;
+    private String artLink;
     private String name;
     private String imglink;
-    private String description;
+    private String artist;
 
     @Override
     public String toString() {
-        return "storylink:" + storyLink  + "~name:" + name + "~Description:" + description;
+        return "Name of Painting: " + name + " Artist: " + artist;
     }
 }

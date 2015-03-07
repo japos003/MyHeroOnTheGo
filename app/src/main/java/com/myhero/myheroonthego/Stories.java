@@ -40,9 +40,6 @@ public class Stories extends ActionBarActivity{
 
         SearchAllStory sas = new SearchAllStory();
         sas.execute();
-        //setContentView(R.layout.activity_stories);
-        //showList();
-
     }
 
     class SearchAllStory extends AsyncTask<String, Integer, ArrayList<AllStories2>> {
@@ -160,54 +157,39 @@ public class Stories extends ActionBarActivity{
             @Override
             public void onItemClick(AdapterView<?> paret, View viewClicked, int position, long id) {
                 TextView textView = (TextView) viewClicked;
-                String message ="Which is string: " + textView.getText().toString();
-                //String tosplit = textView.getText().toString();
                 String tosplit= " ";
 
-                if(storyc != null) {
+                if(storyc != null && !storyc.isEmpty()) {
                     tosplit = storyc.get(position).toString();
                 }
-                else if (stories != null) {
+                else if (stories != null && !stories.isEmpty()) {
                     tosplit = stories.get(position).toString();
                 }
 
-                //Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
-                //if (textView.getText().toString().contains("~")) {
                 if (tosplit.contains("~")) {
-                //if (x.contains("~")) {
                     //separate each part of the array with ~
                     //and split the string based on each ~
                     String[] parts = tosplit.split("~");
-                    //String[] parts = x.split("~");
                     String tag = parts[0];
-                    //String[] partstest = tosplit.split(",");
-                    //String tag = partstest[0];
 
                     if (tag.contains(":")) {
-                    //if(tag.contains(",")) {
                         String[] xparts = tag.split(":");
                         String tag2 = xparts[1];
-                        //if (textView.getText().toString().contains("Tag:")) {
                         if(tosplit.contains("Tag:")) {
-                        //if(x.contains("Tag:")) {
                             storytag = tag2;
-                            //storytag = stories.get(position).toString();
                             stories.clear();
                             SearchStoryCategory ssc = new SearchStoryCategory();
                             ssc.execute();
                         }
-                        //else if(textView.getText().toString().contains("storylink:")) {
                         else if(tosplit.contains("storylink:")) {
-                        //if (x.contains("storylink:")) {
                             storylink = tag2;
                             //set new sotry link and clear new array
                             storyc.clear();
                             SearchStory ss = new SearchStory();
                             ss.execute();
-                            //Toast.makeText(Stories.this, tag2.trim(), Toast.LENGTH_LONG).show();
                         }
                         else {
-                           //Toast.makeText(Stories.this, tag2.trim(), Toast.LENGTH_LONG).show();
+
                         }
                     }
                     else {
@@ -215,44 +197,11 @@ public class Stories extends ActionBarActivity{
                     }
                 }
                 else {
-                    //Toast.makeText(Stories.this, message, Toast.LENGTH_LONG).show();
+
                 }
             }
         });
     }
-
-    /*
-    private void showList(){
-
-        //LISTS
-        final String[] listOfValues = new String[] { "Aids", "Angels", "Animals",
-                "Artists", "Business", "Community", "Earthkeepers", "Explorers", "Faith",
-                "Family", "Freedom", "Health", "Hero's Hero", "Heroes in the News"};
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listOfValues);
-
-        //PUTS TO LISTVIEW
-        ListView lv = (ListView) findViewById(R.id.listView);
-        lv.setAdapter(adapter);
-
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle bundle = new Bundle();
-
-                //GOES TO DIFFERENT PAGE BASED ON ID
-
-                String nameOfChoice = listOfValues[(int)id];
-                bundle.putString("name", nameOfChoice);
-                Intent sendToSH = new Intent(Stories.this, StoriesHeroes.class);
-                sendToSH.putExtras(bundle);
-
-                startActivity(sendToSH);
-            }
-        });
-
-    }
-    */
 
 
     @Override

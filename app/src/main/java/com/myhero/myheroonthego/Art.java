@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 
 public class Art extends ActionBarActivity {
-    private String tag = "";
+    private String y = "";
     private ArrayList<AllArt> art;
     private ArrayList<ArtCat> artcat;
 
@@ -64,9 +64,9 @@ public class Art extends ActionBarActivity {
         @Override
         protected ArrayList<ArtCat2> doInBackground(String... params) {
             executeGetArtCat getartcat = new executeGetArtCat();
-            artcat = getartcat.GetArtCategory(tag);
+            artcat = getartcat.GetArtCategory(y);
             executeGetArtCat2 getartcat2 = new executeGetArtCat2();
-            ArrayList<ArtCat2> art2 = getartcat2.GetArtCategory2(tag);
+            ArrayList<ArtCat2> art2 = getartcat2.GetArtCategory2(y);
             return art2;
         }
 
@@ -108,30 +108,26 @@ public class Art extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> paret, View viewClicked, int position, long id) {
                 TextView textView = (TextView) viewClicked;
-                String message ="Which is string: " + textView.getText().toString();
-                //String tosplit = textView.getText().toString();
                 String tosplit = " ";
-                if(art != null) {
+                if(art != null && !art.isEmpty()) {
                     tosplit = art.get(position).toString();
                 }
-                else {
-
+                else if (artcat != null && !art.isEmpty()) {
+                    tosplit = artcat.get(position).toString();
                 }
-                //if (textView.getText().toString().contains("~")) {
                 if (tosplit.contains("~")) {
                     String[] parts = tosplit.split("~");
                     String tag = parts[0];
                     if (tag.contains(":")) {
                         String[] xparts = tag.split(":");
                         String tag2 = xparts[1];
-                        Toast.makeText(Art.this, tag2.trim(), Toast.LENGTH_LONG).show();
+                        if(tosplit.contains("artlink:")) {
+                            y = tag2;
+                            art.clear();
+                            SearchArtCat sac = new SearchArtCat();
+                            sac.execute();
+                        }
                     }
-                    else {
-
-                    }
-                }
-                else {
-                    Toast.makeText(Art.this, message, Toast.LENGTH_LONG).show();
                 }
             }
         });
