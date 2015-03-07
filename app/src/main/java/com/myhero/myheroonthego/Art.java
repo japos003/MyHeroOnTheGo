@@ -17,6 +17,9 @@ import java.util.ArrayList;
 
 
 public class Art extends ActionBarActivity {
+    private String tag = "";
+    private ArrayList<AllArt> art;
+    private ArrayList<ArtCat> artcat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,23 +31,25 @@ public class Art extends ActionBarActivity {
         saa.execute();
     }
 
-    class SearchAllArt extends AsyncTask<String, Integer, ArrayList<AllArt>> {
+    class SearchAllArt extends AsyncTask<String, Integer, ArrayList<AllArt2>> {
         //call to get all a list of all art tags
         @Override
-        protected ArrayList<AllArt> doInBackground(String... params) {
+        protected ArrayList<AllArt2> doInBackground(String... params) {
             executeGetAllArt getallart = new executeGetAllArt();
-            ArrayList<AllArt> art = getallart.GetAllArt();
-            return art;
+            art = getallart.GetAllArt();
+            executeGetAllArt2 getallart2 = new executeGetAllArt2();
+            ArrayList<AllArt2> art2 = getallart2.GetAllArt2();
+            return art2;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<AllArt> allart) {
+        protected void onPostExecute(ArrayList<AllArt2> allart2) {
             //once we get all art tags, call to display as a list
-            ArrayAdapter<AllArt> artAdapter = new ArrayAdapter<AllArt>(Art.this, android.R.layout.simple_list_item_1, allart);
+            ArrayAdapter<AllArt2> artAdapter2 = new ArrayAdapter<AllArt2>(Art.this, android.R.layout.simple_list_item_1, allart2);
             setProgressBarIndeterminateVisibility(false);
             setContentView(R.layout.activity_art);
             registerClickCallback();
-            populateListView(artAdapter);
+            populateListView(artAdapter2);
         }
         //doesn't really do anything
         @Override
@@ -54,10 +59,44 @@ public class Art extends ActionBarActivity {
 
     }
 
-    private void populateListView(ArrayAdapter<AllArt> c) {
+    class SearchArtCat extends AsyncTask<String, Integer, ArrayList<ArtCat2>> {
+        //call to get all a list of all art tags
+        @Override
+        protected ArrayList<ArtCat2> doInBackground(String... params) {
+            executeGetArtCat getartcat = new executeGetArtCat();
+            artcat = getartcat.GetArtCategory(tag);
+            executeGetArtCat2 getartcat2 = new executeGetArtCat2();
+            ArrayList<ArtCat2> art2 = getartcat2.GetArtCategory2(tag);
+            return art2;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<ArtCat2> artcat2) {
+            //once we get all art tags, call to display as a list
+            ArrayAdapter<ArtCat2> artAdapter2 = new ArrayAdapter<ArtCat2>(Art.this, android.R.layout.simple_list_item_1, artcat2);
+            setProgressBarIndeterminateVisibility(false);
+            setContentView(R.layout.activity_art);
+            registerClickCallback();
+            populateListView2(artAdapter2);
+        }
+        //doesn't really do anything
+        @Override
+        protected void onPreExecute() {
+            setProgressBarIndeterminateVisibility(true);
+        }
+
+    }
+
+    private void populateListView(ArrayAdapter<AllArt2> c) {
         //set the view to display all art tags
         ListView list = (ListView) findViewById(R.id.listView);
         list.setAdapter(c);
+    }
+
+    private void populateListView2(ArrayAdapter<ArtCat2> d) {
+        //set the view to display all art tags
+        ListView list = (ListView) findViewById(R.id.listView);
+        list.setAdapter(d);
     }
 
     private void registerClickCallback() {
@@ -70,25 +109,22 @@ public class Art extends ActionBarActivity {
             public void onItemClick(AdapterView<?> paret, View viewClicked, int position, long id) {
                 TextView textView = (TextView) viewClicked;
                 String message ="Which is string: " + textView.getText().toString();
-                String tosplit = textView.getText().toString();
-                //Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
-                if (textView.getText().toString().contains("~")) {
+                //String tosplit = textView.getText().toString();
+                String tosplit = " ";
+                if(art != null) {
+                    tosplit = art.get(position).toString();
+                }
+                else {
+
+                }
+                //if (textView.getText().toString().contains("~")) {
+                if (tosplit.contains("~")) {
                     String[] parts = tosplit.split("~");
                     String tag = parts[0];
                     if (tag.contains(":")) {
                         String[] xparts = tag.split(":");
                         String tag2 = xparts[1];
                         Toast.makeText(Art.this, tag2.trim(), Toast.LENGTH_LONG).show();
-                        /*
-                        if (textView.getText().toString().contains("Tag:")) {
-                            storytag = tag2;
-                            SearchStoryCategory ssc = new SearchStoryCategory();
-                            ssc.execute();
-                        }
-                        else {
-                            Toast.makeText(Art.this, tag2.trim(), Toast.LENGTH_LONG).show();
-                        }
-                        */
                     }
                     else {
 

@@ -59,7 +59,7 @@ public class executeGetStory {
 
                     String link = jsonStory.getString("link");
                     storydetails.setLink(link);
-                    story.add(storydetails);
+                    //story.add(storydetails);
                 }
             }
 

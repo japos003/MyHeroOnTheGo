@@ -23,11 +23,21 @@ public class Stories extends ActionBarActivity{
     private String storytag = " ";
     //vatiable to get storylink
     private String storylink = " ";
+    private ArrayList<AllStories> stories;
+    private ArrayList<StoryCat> storyc;
+    private String x = " ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //once user clicks on stories start to get all story tags
+        if(stories != null) {
+            stories.clear();
+        }
+        if (storyc != null) {
+            storyc.clear();
+        }
+
         SearchAllStory sas = new SearchAllStory();
         sas.execute();
         //setContentView(R.layout.activity_stories);
@@ -35,23 +45,24 @@ public class Stories extends ActionBarActivity{
 
     }
 
-    class SearchAllStory extends AsyncTask<String, Integer, ArrayList<AllStories>> {
+    class SearchAllStory extends AsyncTask<String, Integer, ArrayList<AllStories2>> {
         //call to get a list of all story tags
         @Override
-        protected ArrayList<AllStories> doInBackground(String... params) {
+        protected ArrayList<AllStories2> doInBackground(String... params) {
 
             executeGetAllStory getallstory = new executeGetAllStory();
+            executeGetAllStory2 getallstory2 = new executeGetAllStory2();
             //put the list of stories into an array
-            ArrayList<AllStories> stories = getallstory.GetAllStory();
-            return stories;
+            ArrayList<AllStories2> stories2 = getallstory2.GetAllStory2();
+            stories = getallstory.GetAllStory();
+            return stories2;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<AllStories> allStories) {
+        protected void onPostExecute(ArrayList<AllStories2> allStories2) {
             //once we get all stories, call to display as a list
-            ArrayAdapter<AllStories> storyAdapter = new ArrayAdapter<AllStories>(Stories.this, android.R.layout.simple_list_item_1, allStories);
+            ArrayAdapter<AllStories2> storyAdapter = new ArrayAdapter<AllStories2>(Stories.this, android.R.layout.simple_list_item_1, allStories2);
             setProgressBarIndeterminateVisibility(false);
-            String ta565g = allStories.get(1).toString();
             setContentView(R.layout.activity_stories);
             //this function is to see if user clicks on anything in the list
             registerClickCallback();
@@ -66,24 +77,26 @@ public class Stories extends ActionBarActivity{
 
     }
 
-    class SearchStoryCategory extends AsyncTask<String, Integer, ArrayList<StoryCat>> {
+    class SearchStoryCategory extends AsyncTask<String, Integer, ArrayList<StoryCat2>> {
         //call to get a list of stories related to a tag
         @Override
-        protected ArrayList<StoryCat> doInBackground(String... params) {
+        protected ArrayList<StoryCat2> doInBackground(String... params) {
 
             executeStoryCategory getstorycategory = new executeStoryCategory();
-            ArrayList<StoryCat> storyc = getstorycategory.GetStoryCategory(storytag);
-            return storyc;
+            storyc = getstorycategory.GetStoryCategory(storytag);
+            executeStoryCategory2 getstorycategory2 = new executeStoryCategory2();
+            ArrayList<StoryCat2> storyc2 = getstorycategory2.GetStoryCategory2(storytag);
+            return storyc2;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<StoryCat> Storiesca) {
+        protected void onPostExecute(ArrayList<StoryCat2> Storiesca2) {
             //once we get the list of stories, we display them
-            ArrayAdapter<StoryCat> storycAdapter = new ArrayAdapter<StoryCat>(Stories.this, android.R.layout.simple_list_item_1, Storiesca);
+            ArrayAdapter<StoryCat2> storycAdapter2 = new ArrayAdapter<StoryCat2>(Stories.this, android.R.layout.simple_list_item_1, Storiesca2);
             setProgressBarIndeterminateVisibility(false);
             setContentView(R.layout.activity_stories);
             registerClickCallback();
-            populateListView2(storycAdapter);
+            populateListView2(storycAdapter2);
         }
         //doesn't really do anything
         @Override
@@ -126,14 +139,14 @@ public class Stories extends ActionBarActivity{
         list.setAdapter(d);
     }
 
-    private void populateListView2(ArrayAdapter<StoryCat> b) {
+    private void populateListView2(ArrayAdapter<StoryCat2> b) {
         //this sets the view to display the list of stories under
         //a certain tag
         ListView list = (ListView) findViewById(R.id.listView);
         list.setAdapter(b);
     }
 
-    private void populateListView(ArrayAdapter<AllStories> a) {
+    private void populateListView(ArrayAdapter<AllStories2> a) {
         //this is to set the view to display the list of stroy tags
         ListView list = (ListView) findViewById(R.id.listView);
         list.setAdapter(a);
@@ -148,23 +161,47 @@ public class Stories extends ActionBarActivity{
             public void onItemClick(AdapterView<?> paret, View viewClicked, int position, long id) {
                 TextView textView = (TextView) viewClicked;
                 String message ="Which is string: " + textView.getText().toString();
-                String tosplit = textView.getText().toString();
+                //String tosplit = textView.getText().toString();
+                String tosplit= " ";
+
+                if(storyc != null) {
+                    tosplit = storyc.get(position).toString();
+                }
+                else if (stories != null) {
+                    tosplit = stories.get(position).toString();
+                }
+
                 //Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
-                if (textView.getText().toString().contains("~")) {
+                //if (textView.getText().toString().contains("~")) {
+                if (tosplit.contains("~")) {
+                //if (x.contains("~")) {
                     //separate each part of the array with ~
                     //and split the string based on each ~
                     String[] parts = tosplit.split("~");
+                    //String[] parts = x.split("~");
                     String tag = parts[0];
+                    //String[] partstest = tosplit.split(",");
+                    //String tag = partstest[0];
+
                     if (tag.contains(":")) {
+                    //if(tag.contains(",")) {
                         String[] xparts = tag.split(":");
                         String tag2 = xparts[1];
-                        if (textView.getText().toString().contains("Tag:")) {
+                        //if (textView.getText().toString().contains("Tag:")) {
+                        if(tosplit.contains("Tag:")) {
+                        //if(x.contains("Tag:")) {
                             storytag = tag2;
+                            //storytag = stories.get(position).toString();
+                            stories.clear();
                             SearchStoryCategory ssc = new SearchStoryCategory();
                             ssc.execute();
                         }
-                        else if(textView.getText().toString().contains("storylink:")) {
+                        //else if(textView.getText().toString().contains("storylink:")) {
+                        else if(tosplit.contains("storylink:")) {
+                        //if (x.contains("storylink:")) {
                             storylink = tag2;
+                            //set new sotry link and clear new array
+                            storyc.clear();
                             SearchStory ss = new SearchStory();
                             ss.execute();
                             //Toast.makeText(Stories.this, tag2.trim(), Toast.LENGTH_LONG).show();

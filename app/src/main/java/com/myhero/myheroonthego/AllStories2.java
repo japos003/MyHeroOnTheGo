@@ -3,9 +3,9 @@ package com.myhero.myheroonthego;
 import java.io.Serializable;
 
 /**
- * Created by Raul Madrigal Jr on 3/4/2015.
+ * Created by Raul on 3/6/2015.
  */
-public class AllStories implements Serializable {
+public class AllStories2 implements Serializable{
 
     public String getTag() {
         return tag;
@@ -33,7 +33,6 @@ public class AllStories implements Serializable {
 
     @Override
     public String toString() {
-        return "Tag:" + tag  + "~ Type: " + type + "~ Description: " + description;
-        //return "Tag:" + tag;
+        return  type + ", Description: " + description;
     }
 }

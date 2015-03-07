@@ -55,10 +55,11 @@ public class StoryDetails implements Serializable {
         if (text != null) {
             return text;
         }
-        else if (link != null) {
-            return "Link: " + link;
+        //else if (link != null) {
+
+            //return "Link: " + link;
             //return "Kind:" + Kind  + "~link:" + link + "~description:" + description3;
-        }
+        //}
         else {
             return name4 + "\n";
         }
