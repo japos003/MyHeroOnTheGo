@@ -26,6 +26,10 @@ public class Films extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_films);
 
+        if(films != null) {
+            films.clear();
+        }
+
         SearchAllFilms saf = new SearchAllFilms();
         saf.execute();
     }
