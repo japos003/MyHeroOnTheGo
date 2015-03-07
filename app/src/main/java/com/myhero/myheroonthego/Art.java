@@ -1,25 +1,33 @@
 package com.myhero.myheroonthego;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
 public class Art extends ActionBarActivity {
     private String y = "";
+    private String partial_url = "http://198.199.112.105:5000/art/";
+    private String full_url = "";
     private ArrayList<AllArt> art;
     private ArrayList<ArtCat> artcat;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +95,33 @@ public class Art extends ActionBarActivity {
 
     }
 
+    //display single image
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            setContentView(R.layout.activity_art);
+            bmImage.setImageBitmap(result);
+        }
+    }
+
     private void populateListView(ArrayAdapter<AllArt2> c) {
         //set the view to display all art tags
         ListView list = (ListView) findViewById(R.id.listView);
@@ -112,7 +147,7 @@ public class Art extends ActionBarActivity {
                 if(art != null && !art.isEmpty()) {
                     tosplit = art.get(position).toString();
                 }
-                else if (artcat != null && !art.isEmpty()) {
+                else if (artcat != null && !artcat.isEmpty()) {
                     tosplit = artcat.get(position).toString();
                 }
                 if (tosplit.contains("~")) {
@@ -126,6 +161,11 @@ public class Art extends ActionBarActivity {
                             art.clear();
                             SearchArtCat sac = new SearchArtCat();
                             sac.execute();
+                        }
+                        else if (tosplit.contains("imglink")) {
+                            full_url = partial_url + tag2;
+                            tag2 =tag2;
+                            //new DownloadImageTask((ImageView) findViewById(R.id.img)).execute(z);
                         }
                     }
                 }
