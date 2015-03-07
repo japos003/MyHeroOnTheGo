@@ -7,7 +7,7 @@
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         >
 
         <Button
@@ -15,7 +15,8 @@
             android:layout_width="wrap_content"
             android:text="Art"
             android:layout_alignParentLeft="true"
-            android:onClick="gotoArt"/>
+            android:onClick="gotoArt"
+            android:id="@+id/button" />
 
         <Button
             android:layout_height="wrap_content"
@@ -23,15 +24,15 @@
             android:layout_alignParentRight="true"
             android:text="Stories"
             android:onClick="gotoStories" />
-    </RelativeLayout>
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:layout_weight="1"
-        android:id="@+id/listView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/linearLayout" />
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:id="@+id/listView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/button" />
+    </RelativeLayout>
 
 </RelativeLayout>
