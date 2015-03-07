@@ -28,7 +28,7 @@ public class VideoActivity extends Activity {
     VideoView vv;
 
     // placeholder for fetching video url from Quan's server
-    //String VideoURL = ".../thebirdmaker.mp4";
+    String VideoURL = ".../thebirdmaker.mp4";
     // placeholder for fetching video title
     String VideoTitle = "The Bird Maker";
     // placeholder for fetching video description
@@ -52,7 +52,7 @@ public class VideoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
 
-        /*titleView = (TextView) findViewById(R.id.title);
+        titleView = (TextView) findViewById(R.id.title);
         titleView.setText(quote + VideoTitle + quote + "\n" + by + "\n" + author);
 
         descView = (TextView) findViewById(R.id.description);
@@ -88,7 +88,7 @@ public class VideoActivity extends Activity {
                 pd.dismiss();
                 vv.start();
             }
-        });*/
+        });
     }
 
     @Override
@@ -96,12 +96,12 @@ public class VideoActivity extends Activity {
         super.onConfigurationChanged(newConfig);
 
         // Checks the orientation of the screen
-        /*if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+       /* if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             setContentView(R.layout.videoview_land);
             titleView.setVisibility(View.GONE);
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
             setContentView(R.layout.videoview_main);
-        }
-    }*/
+        }*/
     }
 }
+

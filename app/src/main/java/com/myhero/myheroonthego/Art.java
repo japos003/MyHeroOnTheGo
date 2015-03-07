@@ -148,11 +148,6 @@ public class Art extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.submitArt) {
-            startActivity(new Intent(Art.this, SubmitArt.class));
-        }
-
         return super.onOptionsItemSelected(item);
     }
 

@@ -218,11 +218,6 @@ public class Stories extends ActionBarActivity{
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.submitStory) {
-            startActivity(new Intent(Stories.this, SubmitStory.class));
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
