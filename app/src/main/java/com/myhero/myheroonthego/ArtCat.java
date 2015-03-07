@@ -49,6 +49,6 @@ public class ArtCat implements Serializable {
 
     @Override
     public String toString() {
-        return "imglink:" + imglink + "~artist:" + artist;
+        return "artLink2:" + artLink + "~artist:" + artist;
     }
 }

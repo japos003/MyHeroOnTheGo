@@ -23,10 +23,12 @@ import java.util.ArrayList;
 
 public class Art extends ActionBarActivity {
     private String y = "";
-    private String partial_url = "http://198.199.112.105:5000/art/";
-    private String full_url = "";
+    private String z = " ";
+    private String partial_url = " ";
+    private String full_url = "http://";
     private ArrayList<AllArt> art;
     private ArrayList<ArtCat> artcat;
+    private ArrayList<ArtUrl> arturl;
     private ImageView imageView;
 
     @Override
@@ -35,6 +37,15 @@ public class Art extends ActionBarActivity {
         //setContentView(R.layout.activity_art);
         //once the user click on the art button
         //start to find all art tags
+        if(art != null) {
+            art.clear();
+        }
+        if (artcat != null) {
+            artcat.clear();
+        }
+        if (arturl != null) {
+            arturl.clear();
+        }
         SearchAllArt saa = new SearchAllArt();
         saa.execute();
     }
@@ -95,6 +106,44 @@ public class Art extends ActionBarActivity {
 
     }
 
+    class SearchArt extends AsyncTask<String, Integer, ArrayList<ArtUrl>> {
+        //call to get all a list of all art tags
+        @Override
+        protected ArrayList<ArtUrl> doInBackground(String... params) {
+            //executeGetArt getart = new executeGetArt();
+            //art = getart.GetArtCategory(y);
+            executeGetArt getart = new executeGetArt();
+            ArrayList<ArtUrl> arturl = getart.GetArt(z);
+            return arturl;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<ArtUrl> artURL) {
+            //once we get all art tags, call to display as a list
+            ArrayAdapter<ArtUrl> artAdapter2 = new ArrayAdapter<ArtUrl>(Art.this, android.R.layout.simple_list_item_1, artURL);
+            setProgressBarIndeterminateVisibility(false);
+            setContentView(R.layout.activity_art);
+            partial_url = artURL.get(0).toString();
+            String[] parts = partial_url.split("~");
+            String tag = parts[0];
+            if (tag.contains(":")) {
+                String[] xparts = tag.split(":");
+                String tag2 = xparts[1];
+                full_url = full_url + tag2;
+                //arturl.clear();
+                new DownloadImageTask((ImageView) findViewById(R.id.img)).execute(full_url);
+            }
+            //registerClickCallback();
+            //populateListView3(artAdapter2);
+        }
+        //doesn't really do anything
+        @Override
+        protected void onPreExecute() {
+            setProgressBarIndeterminateVisibility(true);
+        }
+
+    }
+
     //display single image
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
@@ -117,7 +166,6 @@ public class Art extends ActionBarActivity {
         }
 
         protected void onPostExecute(Bitmap result) {
-            setContentView(R.layout.activity_art);
             bmImage.setImageBitmap(result);
         }
     }
@@ -133,6 +181,12 @@ public class Art extends ActionBarActivity {
         ListView list = (ListView) findViewById(R.id.listView);
         list.setAdapter(d);
     }
+
+    //private void populateListView3(ArrayAdapter<ArtUrl> e) {
+        //set the view to display all art tags
+      //  ListView list = (ListView) findViewById(R.id.listView);
+       // list.setAdapter(e);
+    //}
 
     private void registerClickCallback() {
         //this function determines if the user clicks
@@ -150,6 +204,9 @@ public class Art extends ActionBarActivity {
                 else if (artcat != null && !artcat.isEmpty()) {
                     tosplit = artcat.get(position).toString();
                 }
+                else if (arturl != null && !arturl.isEmpty()) {
+                    tosplit = arturl.get(position).toString();
+                }
                 if (tosplit.contains("~")) {
                     String[] parts = tosplit.split("~");
                     String tag = parts[0];
@@ -162,10 +219,11 @@ public class Art extends ActionBarActivity {
                             SearchArtCat sac = new SearchArtCat();
                             sac.execute();
                         }
-                        else if (tosplit.contains("imglink")) {
-                            full_url = partial_url + tag2;
-                            tag2 =tag2;
-                            //new DownloadImageTask((ImageView) findViewById(R.id.img)).execute(z);
+                        else if (tosplit.contains("artLink2")) {
+                            z = tag2;
+                            artcat.clear();
+                            SearchArt sa = new SearchArt();
+                            sa.execute();
                         }
                     }
                 }
