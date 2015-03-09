@@ -21,20 +21,20 @@ public class executeGetAllFilms {
         GetRequest getrequest = new GetRequest();
         try {
 
-            String rawStoryData = getrequest.request(URL);
+            String rawFilmData = getrequest.request(URL);
 
-            JSONArray allfilmsArray = new JSONArray(rawStoryData);
+            JSONArray allfilmsArray = new JSONArray(rawFilmData);
 
             for (int i =0; i < allfilmsArray.length(); i++) {
 
                 AllFilms allfilms = new AllFilms();
 
-                JSONObject jsonStory = allfilmsArray.getJSONObject(i);
+                JSONObject jsonFilms = allfilmsArray.getJSONObject(i);
 
-                String filmlink = jsonStory.getString("movielink");
+                String filmlink = jsonFilms.getString("movielink");
                 allfilms.setFilmLink(filmlink);
 
-                String name = jsonStory.getString("name");
+                String name = jsonFilms.getString("name");
                 allfilms.setName(name);
 
                 afilms.add(allfilms);

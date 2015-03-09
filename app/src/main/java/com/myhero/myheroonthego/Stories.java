@@ -223,7 +223,7 @@ public class Stories extends ActionBarActivity{
 
     //VIDEOS
     public void gotoFilms(View view){
-        //startActivity(new Intent(Art.this, Films.class));
+        startActivity(new Intent(Stories.this, Films.class));
     }
 
     //ART

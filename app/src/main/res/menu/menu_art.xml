@@ -1,8 +1,4 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context="com.myhero.myheroonthego.Art">
-    <item android:id="@+id/submitArt"
-        android:title="Submit Art"
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom" />
 </menu>
