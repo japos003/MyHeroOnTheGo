@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class Films extends ActionBarActivity {
 
     private ArrayList<AllFilms> films;
-    //private String filmtag = " ";
+    private String filmtag = "http://198.199.112.105/mailbox_lg.mp4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,20 +34,22 @@ public class Films extends ActionBarActivity {
         saf.execute();
     }
 
-    class SearchAllFilms extends AsyncTask<String, Integer, ArrayList<AllFilms>> {
+    class SearchAllFilms extends AsyncTask<String, Integer, ArrayList<AllFilms2>> {
         //call to get a list of all story tags
         @Override
-        protected ArrayList<AllFilms> doInBackground(String... params) {
+        protected ArrayList<AllFilms2> doInBackground(String... params) {
+            executeGetAllFilms2 getallfilms2 = new executeGetAllFilms2();
             executeGetAllFilms getallfilms = new executeGetAllFilms();
             //put the list of stories into an array
+            ArrayList<AllFilms2> films2 = getallfilms2.GetAllMovies2();
             films = getallfilms.GetAllMovies();
-            return films;
+            return films2;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<AllFilms> allFilms2) {
+        protected void onPostExecute(ArrayList<AllFilms2> allFilms2) {
             //once we get all stories, call to display as a list
-            ArrayAdapter<AllFilms> filmAdapter = new ArrayAdapter<AllFilms>(Films.this, android.R.layout.simple_list_item_1, films);
+            ArrayAdapter<AllFilms2> filmAdapter = new ArrayAdapter<AllFilms2>(Films.this, android.R.layout.simple_list_item_1, allFilms2);
             setProgressBarIndeterminateVisibility(false);
             setContentView(R.layout.activity_films);
             //this function is to see if user clicks on anything in the list
@@ -63,7 +65,7 @@ public class Films extends ActionBarActivity {
 
     }
 
-    private void populateListView(ArrayAdapter<AllFilms> a) {
+    private void populateListView(ArrayAdapter<AllFilms2> a) {
         //this is to set the view to display the list of stroy tags
         ListView list = (ListView) findViewById(R.id.listView);
         list.setAdapter(a);
@@ -93,7 +95,12 @@ public class Films extends ActionBarActivity {
                     String tag = parts[0];
                     if (tag.contains(":")) {
                         String[] xparts = tag.split(":");
-                        String tag2 = xparts[1];
+                        //String tag2 = xparts[1];
+                        String tag2 = films.get(position).getFilmLink().toString();
+                        //Ryan the link to the movie the user wants to play is saved in filmtag
+                        //for now it is a hardcoded string I will work on it later to get the acutal link by tonight
+                        //execute to the play the video here
+                        //-Raul
                         Toast.makeText(Films.this, tag2.trim(), Toast.LENGTH_LONG).show();
                     }
                     else {

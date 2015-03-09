@@ -1,9 +1,9 @@
 package com.myhero.myheroonthego;
 
 /**
- * Created by Jon Apostol on 3/6/2015.
+ * Created by Raul on 3/9/2015.
  */
-public class AllFilms {
+public class AllFilms2 {
     public String getFilmLink() {
         return movielink;
     }
@@ -22,7 +22,7 @@ public class AllFilms {
     private String movielink;
 
     @Override
-   public String toString() {
-        return "name:" + name  + "~ movielink:" + movielink;
+    public String toString() {
+        return name;
     }
 }
