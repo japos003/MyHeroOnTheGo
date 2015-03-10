@@ -92,6 +92,8 @@ public class Films extends ActionBarActivity {
             //populateListView2(filmAdapter);
 
             filmlink = fm.get(0).toString();
+            //System.out.println(filmlink); //for debugging to see what filmlink is
+
             //Ryan the link to the movie the user wants to play is saved in filmlink
             //execute to the play the video here
             //-Raul
