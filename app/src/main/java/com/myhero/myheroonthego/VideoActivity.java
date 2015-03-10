@@ -2,12 +2,14 @@ package com.myhero.myheroonthego;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Display;
@@ -22,27 +24,17 @@ import static android.view.View.VISIBLE;
 /**
  * Created by Ryan on 2/25/15.
  */
-public class VideoActivity extends Activity {
+public class VideoActivity extends ActionBarActivity {
 
     ProgressDialog pd;
     VideoView vv;
 
-    // placeholder for fetching video url from Quan's server
-    String VideoURL = ".../thebirdmaker.mp4";
+    String VideoURL;
     // placeholder for fetching video title
-    String VideoTitle = "The Bird Maker";
-    // placeholder for fetching video description
-    String VideoDescription = "Cheikh Darou Seck is a filmmaker and teacher from Senegal. " +
-            "Cheikh's affiliation with iEARN reflects on his commitment to global education. " +
-            "About the artist, MAMADOU TALL DIEDHIOU: His obsession with birds originated " +
-            "in the small village of Niomoune.fdfffffdkfhdjkfkhsfsdjhfkshfskhkshfkhkfdsfjhksfhkshf" +
-            "dfkslfhsfkjshfskdhfhksfjkhfjsfkshfjhskfhskfhsjfhksfhjskfhkshfkshfsfshkshfkshfsdhfkshkf" +
-            "sdkfjsljlskfjlsjfsljlsjfslkfjlsjflskjfsljflsjfsljflsjfjsljlsjflsjflsjflsjlf" +
-            "sljsdlfjslkfjsljslsjlsjfsjlsjskjflsjfsljflsfjsljslfjsljsldjflskj";
-    // placeholder for fetching creator of video
-    String author = "Cheikh Darou Seck";
-    String quote = "\"";
-    String by = "By ";
+    //String VideoTitle = "The Bird Maker";
+    String VideoTitle;
+
+    String VideoDescription;
 
     TextView titleView;
     TextView descView;
@@ -52,8 +44,14 @@ public class VideoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
 
+        Intent i = getIntent();
+
+        VideoURL = i.getStringExtra("video_url");
+        VideoDescription = i.getStringExtra("desc");
+        VideoTitle = i.getStringExtra("title");
+
         titleView = (TextView) findViewById(R.id.title);
-        titleView.setText(quote + VideoTitle + quote + "\n" + by + "\n" + author);
+        titleView.setText(VideoTitle);
 
         descView = (TextView) findViewById(R.id.description);
         descView.setText(VideoDescription);
@@ -103,5 +101,7 @@ public class VideoActivity extends Activity {
             setContentView(R.layout.videoview_main);
         }*/
     }
+
+
 }
 
