@@ -1,9 +1,11 @@
 package com.myhero.myheroonthego;
 
+import java.io.Serializable;
+
 /**
  * Created by Jon Apostol on 3/6/2015.
  */
-public class AllFilms {
+public class AllFilms implements Serializable {
     public String getFilmLink() {
         return movielink;
     }
