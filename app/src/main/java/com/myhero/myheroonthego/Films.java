@@ -1,17 +1,24 @@
 package com.myhero.myheroonthego;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import java.util.ArrayList;
 
@@ -22,6 +29,17 @@ public class Films extends ActionBarActivity {
     private ArrayList<WantedFilm> fm;
     private String filmtag = " ";
     private String filmlink = " ";
+
+    ProgressDialog pd;
+    VideoView vv;
+    String VideoTitle = " ";
+    // placeholder for fetching video description
+    String VideoDescription = " ";
+    // placeholder for fetching creator of video
+    String quote = "\"";
+
+    TextView titleView;
+    TextView descView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,18 +103,62 @@ public class Films extends ActionBarActivity {
             //once we get all stories, call to display as a list
             ArrayAdapter<WantedFilm2> filmAdapter = new ArrayAdapter<WantedFilm2>(Films.this, android.R.layout.simple_list_item_1, wantedfilm2);
             setProgressBarIndeterminateVisibility(false);
-            setContentView(R.layout.activity_films);
+            //setContentView(R.layout.activity_films);
             //this function is to see if user clicks on anything in the list
             //registerClickCallback();
             //This function is to make the list of story tags visible
             //populateListView2(filmAdapter);
-
-            filmlink = fm.get(0).toString();
+            String tosplit4 = fm.get(0).toString();
+            String[] parts8 = tosplit4.split("~");
+            String desc = parts8[0];
+            String fl = parts8[1];
+            String title = parts8[2];
+            filmlink = fl;
+            VideoDescription = desc;
+            VideoTitle = title;
             //System.out.println(filmlink); //for debugging to see what filmlink is
 
-            //Ryan the link to the movie the user wants to play is saved in filmlink
-            //execute to the play the video here
-            //-Raul
+            //Ryan's code
+            setContentView(R.layout.activity_video);
+
+            titleView = (TextView) findViewById(R.id.title);
+            //titleView.setText(quote + VideoTitle + quote + "\n" + by + "\n" + author);\
+            titleView.setText(quote + VideoTitle + quote);
+
+            descView = (TextView) findViewById(R.id.description);
+            descView.setText(VideoDescription);
+            descView.setMovementMethod(new ScrollingMovementMethod());
+
+            vv = (VideoView) findViewById(R.id.VideoView);
+
+            pd = new ProgressDialog(Films.this);
+            pd.setTitle("MyHero on the Go Videos");
+            pd.setMessage("Buffering...");
+            pd.setIndeterminate(false);
+            pd.setCancelable(false);
+            pd.show();
+
+            try {
+                MediaController mc = new MediaController(Films.this);
+                mc.setAnchorView(vv);
+
+                Uri video = Uri.parse(filmlink);
+                vv.setMediaController(mc);
+                vv.setVideoURI(video);
+
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+
+            vv.requestFocus();
+            vv.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+                public void onPrepared(MediaPlayer mp) {
+                    pd.dismiss();
+                    vv.start();
+                }
+            });
         }
         //doesn't really do anything
         @Override

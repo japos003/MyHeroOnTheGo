@@ -41,6 +41,6 @@ public class WantedFilm implements Serializable{
 
     @Override
     public String toString() {
-        return link;
+        return Caption + "~" + link + "~" + name;
     }
 }
