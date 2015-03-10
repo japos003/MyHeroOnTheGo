@@ -21,7 +21,7 @@ public class Films extends ActionBarActivity {
     private ArrayList<AllFilms> films;
     private ArrayList<WantedFilm> fm;
     private String filmtag = " ";
-    private String filmlink = "http://198.199.112.105/mailbox_lg.mp4";
+    private String filmlink = " ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +87,14 @@ public class Films extends ActionBarActivity {
             setProgressBarIndeterminateVisibility(false);
             setContentView(R.layout.activity_films);
             //this function is to see if user clicks on anything in the list
-            registerClickCallback();
+            //registerClickCallback();
             //This function is to make the list of story tags visible
-            populateListView2(filmAdapter);
+            //populateListView2(filmAdapter);
+
+            filmlink = fm.get(0).toString();
+            //Ryan the link to the movie the user wants to play is saved in filmlink
+            //execute to the play the video here
+            //-Raul
         }
         //doesn't really do anything
         @Override
@@ -134,24 +139,20 @@ public class Films extends ActionBarActivity {
                     String[] parts = tosplit.split("~");
                     String tag = parts[0];
                     if (tag.contains(":")) {
-                        String[] xparts = tag.split(":");
-                        String tag2 = xparts[1];
-                        filmtag = films.get(position).getFilmLink().toString();
-                        films.clear();
-                        SearchFilm sf = new SearchFilm();
-                        sf.execute();
-                        //Ryan the link to the movie the user wants to play is saved in filmlink
-                        //for now it is a hardcoded string I will work on it later to get the acutal link by tonight
-                        //execute to the play the video here
-                        //-Raul
-                        //Toast.makeText(Films.this, tag2.trim(), Toast.LENGTH_LONG).show();
+                        if(tosplit.contains("name:")) {
+                            filmtag = films.get(position).getFilmLink().toString();
+                            films.clear();
+                            SearchFilm sf = new SearchFilm();
+                            sf.execute();
+
+                        }
                     }
                     else {
 
                     }
                 }
                 else {
-                    //Toast.makeText(Films.this, message, Toast.LENGTH_LONG).show();
+
                 }
             }
         });
