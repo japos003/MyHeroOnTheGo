@@ -12,6 +12,6 @@
     <string name="title_activity_submit_story">SubmitStory</string>
     <string name="title_activity_submit_art">SubmitArt</string>
     <string name="title_activity_films">Films</string>
-    <string name="title_activity_video">VideoActivity</string>
+    <string name="title_activity_video">Video Player</string>
 
 </resources>
