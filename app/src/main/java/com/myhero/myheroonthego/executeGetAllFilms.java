@@ -37,6 +37,12 @@ public class executeGetAllFilms {
                 String name = jsonFilms.getString("name");
                 allfilms.setName(name);
 
+                String link = jsonFilms.getString("link");
+                allfilms.setVideoLink(link);
+
+                String caption = jsonFilms.getString("caption");
+                allfilms.setVideoDesc(caption);
+
                 afilms.add(allfilms);
             }
 
