@@ -49,6 +49,6 @@ public class ArtCat2 implements Serializable {
 
     @Override
     public String toString() {
-        return "Name of Painting: " + name + ", Artist: " + artist;
+        return "Name of Painting: " + name + ", " + artist;
     }
 }
